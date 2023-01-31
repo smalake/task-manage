@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import { RecoilRoot } from "recoil";
+import { CookiesProvider } from "react-cookie";
 
 const App = () => {
     const theme = createTheme({
@@ -16,17 +17,19 @@ const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <RecoilRoot>
-                <BrowserRouter>
-                    <Routes>
-                        <Route>
-                            <Route path="login" element={<Login />} />
-                            <Route path="register" element={<Register />} />
-                        </Route>
-                        <Route>
-                            <Route path="home" element={<Home />} />
-                        </Route>
-                    </Routes>
-                </BrowserRouter>
+                <CookiesProvider>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route>
+                                <Route path="login" element={<Login />} />
+                                <Route path="register" element={<Register />} />
+                            </Route>
+                            <Route>
+                                <Route path="home" element={<Home />} />
+                            </Route>
+                        </Routes>
+                    </BrowserRouter>
+                </CookiesProvider>
             </RecoilRoot>
         </ThemeProvider>
     );

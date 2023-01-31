@@ -23,6 +23,7 @@
         "@emotion/styled": "^11.10.5",
         "@mui/lab": "^5.0.0-alpha.117",
         "@mui/material": "^5.11.6",
+        "react-cookie": "^4.1.1",
         "react-router-dom": "^6.8.0",
         "recoil": "^0.7.6",
         "recoil-persist": "^4.2.0"

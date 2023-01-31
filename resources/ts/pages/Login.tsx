@@ -5,13 +5,18 @@ import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { axiosClient } from "../api/axiosClient";
 import { loginUserState } from "../recoil/loginUser";
+import { useCookies } from "react-cookie";
+import { loginCookieState } from "../recoil/loginCookie";
+import { createRandom } from "../lib/random";
 
 export const Login = () => {
     const navigate = useNavigate();
     const [usernameErrText, setUsernameErrText] = useState<string>("");
     const [passwordErrText, setPasswordErrText] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const [currentUser, setCurrentUser] = useRecoilState(loginUserState);
+    const [loginUser, setLoginUser] = useRecoilState(loginUserState);
+    const [cookies, setCookie, removeCookie] = useCookies();
+    const [loginCookie, setLoginCookie] = useRecoilState(loginCookieState);
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -44,10 +49,15 @@ export const Login = () => {
                 username,
                 password,
             });
-            setCurrentUser({
+            setLoginUser({
                 id: loginRes.data.id,
                 name: loginRes.data.username,
             });
+            const randomKey = createRandom(16);
+            const randomValue = createRandom(64);
+            setCookie(randomKey, randomValue);
+            setLoginCookie({ key: randomKey, value: randomValue });
+
             // ログイン成功したらトップページへ
             navigate("/home");
         } catch (error) {
